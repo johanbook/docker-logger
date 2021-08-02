@@ -1,12 +1,13 @@
 const express = require("express");
 const logger = require("morgan");
+const http = require("http");
 
 const PORT = process.env.PORT || 80;
 
 const app = express();
 
 // Basic logger for request status, timestamp, etc
-if (process.env.SUMMARY || process.env.SUMMARY === undefined) {
+if (process.env.SUMMARY === "true" || process.env.SUMMARY === undefined) {
   app.use(logger("combined"));
 }
 
@@ -37,6 +38,16 @@ app.use((req, res) => {
   res.sendStatus(200);
 });
 
-app.listen(PORT, () => {
+const server = http.createServer(app);
+if (process.env.LOG_RAW) {
+  server.on("connection", (socket) => {
+    socket.on("data", (chunk) => {
+      console.log("\n");
+      console.log(chunk.toString());
+    });
+  });
+}
+
+server.listen(PORT, () => {
   console.log(`Listening for connections on port ${PORT}`);
 });

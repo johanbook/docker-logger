@@ -4,10 +4,7 @@ services:
     image: "logger:latest"
     environment:
       PORT: 80
-      LOG_HEADERS: "true"
-      LOG_COOKIES: "true"
-      LOG_BODY: "true"
       SUMMARY: 0
-      VERBOSE: "true"
+      LOG_RAW: "true"
     ports:
       - "80:80"
