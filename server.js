@@ -1,3 +1,4 @@
+const bodyParser = require("body-parser");
 const express = require("express");
 const logger = require("morgan");
 const http = require("http");
@@ -11,8 +12,13 @@ if (process.env.SUMMARY === "true" || process.env.SUMMARY === undefined) {
   app.use(logger("combined"));
 }
 
+app.use(bodyParser.json());
+
 function printObject(obj, prefix = "") {
-  if (!obj) return;
+  if (typeof obj !== "object") {
+    console.log(`${prefix} ${obj}`);
+  }
+
   for (const [key, value] of Object.entries(obj)) {
     console.log(`${prefix}${key}: ${value}`);
   }
