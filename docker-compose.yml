@@ -2,3 +2,7 @@ version: "3.9"
 services:
   logger:
     image: "logger:latest"
+    environment:
+      PORT: 80
+    ports:
+      - "80:80"
