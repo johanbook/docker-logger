@@ -10,14 +10,12 @@ app.use((req, res) => {
 });
 
 const server = http.createServer(app);
-if (process.env.LOG_RAW) {
-  server.on("connection", (socket) => {
-    socket.on("data", (chunk) => {
-      const date = new Date();
-      console.log(date.toISOString());
-      console.log(chunk.toString());
-    });
+server.on("connection", (socket) => {
+  socket.on("data", (chunk) => {
+    const date = new Date();
+    console.log(date.toISOString());
+    console.log(chunk.toString());
   });
-}
+});
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}\n`));
