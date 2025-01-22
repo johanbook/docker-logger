@@ -4,7 +4,5 @@ services:
     image: "logger:latest"
     environment:
       PORT: 80
-      SUMMARY: 0
-      LOG_RAW: "true"
     ports:
       - "80:80"
