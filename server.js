@@ -1,13 +1,11 @@
-const express = require("express");
 const http = require("http");
 
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 8091;
 
-const app = express();
-
-app.use((req, res) => {
-  res.sendStatus(200);
-});
+const app = (req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("OK");
+};
 
 const server = http.createServer(app);
 server.on("connection", (socket) => {
